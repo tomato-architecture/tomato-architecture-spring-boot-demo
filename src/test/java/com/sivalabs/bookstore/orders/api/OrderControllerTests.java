@@ -18,14 +18,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.modulith.test.ApplicationModuleTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 
 @ApplicationModuleTest(webEnvironment = RANDOM_PORT)
 @Sql({"/test-orders-data.sql"})
 class OrderControllerTests extends AbstractIT {
-    @MockBean
+    @MockitoBean
     private CatalogAPI catalogAPI;
 
     @Autowired
@@ -44,8 +44,7 @@ class OrderControllerTests extends AbstractIT {
     @Test
     void shouldCreateOrderSuccessfully() {
         CreateOrderResponse createOrderResponse = given().contentType(ContentType.JSON)
-                .body(
-                        """
+                .body("""
 
                                         {
                                         "customer" : {
@@ -70,8 +69,7 @@ class OrderControllerTests extends AbstractIT {
                                             }
                                         ]
                                     }
-                                    """
-                                .formatted(productCode))
+                                    """.formatted(productCode))
                 .when()
                 .post("/api/orders")
                 .then()
@@ -90,8 +88,7 @@ class OrderControllerTests extends AbstractIT {
     // TODO; Make it a parameterized test and pass different invalid Order payloads
     void shouldReturnBadRequestWhenMandatoryDataIsMissing() {
         given().contentType(ContentType.JSON)
-                .body(
-                        """
+                .body("""
                                     {
                                         "customer" : {
                                             "name": "Siva",

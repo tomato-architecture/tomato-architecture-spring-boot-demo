@@ -21,7 +21,7 @@ You can simply run `BookStoreApplication.java` from your IDE to start the applic
 
 **NOTE:** To work with Kafka transparently from both local and container, add `127.0.0.1   broker` entry in `/etc/hosts` file.
 
-You can also start the application from commandline as follows:
+You can also start the application from the command-line as follows:
 
 ```shell
 $ ./mvnw spring-boot:run
